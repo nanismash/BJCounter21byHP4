@@ -18,6 +18,21 @@
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
         *:focus { outline:none; }
         html, body { height:100%; overflow:hidden; }
+
+        /* ── portrait-only lock ── */
+        @media (orientation: landscape) {
+            body {
+                /* rotate the entire viewport back to portrait */
+                position: fixed !important;
+                width: 100vh !important;
+                height: 100vw !important;
+                top: 0 !important;
+                left: calc((100vh - 100vw) / 2) !important;
+                transform: rotate(90deg) !important;
+                transform-origin: center center !important;
+                overflow: hidden !important;
+            }
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: #065f46;
@@ -234,13 +249,11 @@
         #adOverlay .ad-msg { color:#a7f3d0; font-size:0.88em; font-style:italic; }
     </style>
     <!-- ============================================================
-         ADSTERRA — Popunder_1 (ID 28536074)
-         Fires once per session on first user click. Place in <head>.
+         ADSTERRA — Popunder_1 (código 5583639 / unit 28536074)
+         Script real proporcionado por Adsterra para nanismash.github.io
+         Fires once per session on first user click.
          ============================================================ -->
-    <script type="text/javascript">
-        var ad_idzone = "28536074";
-    </script>
-    <script type="text/javascript" src="//ads.adsterra.com/pop.js"></script>
+    <script src="https://pl28636573.effectivegatecpm.com/98/fd/3f/98fd3f1cd562c2ee99cc70343196f3a1.js"></script>
 </head>
 <body>
 
@@ -406,11 +419,11 @@
 // STATE
 // ================================================
 // ---- ADSTERRA CONFIG ----
-// Smartlink_1 URL: copiar la URL exacta desde tu cuenta Adsterra → SmartLinks → Copy
-// El dominio puede ser smartlnk.com, direct.adsterra.com, u otro — dependiendo de tu cuenta.
-// Ejemplo: 'https://smartlnk.com/28536046'
+// Código general: 5583639
+// Smartlink_1 (unit 28536046): URL real de tu dashboard
+// Popunder_1 (unit 28536074): script en <head> (ya integrado arriba)
 const ADS = {
-    smartlink_url: 'https://smartlnk.com/28536046'   // ← reemplaza con tu URL real
+    smartlink_url: 'https://www.effectivegatecpm.com/zpqeub54f?key=787574f65454103bf13deb390b0ed53e'
 };
 let recCount = 0; // contador de recomendaciones dentro del sistema actual
 
@@ -430,6 +443,10 @@ function getInitialRC(){
 // ================================================
 window.addEventListener('load',()=>{
     setTimeout(()=>{ document.getElementById('splash').classList.add('hide'); },1500);
+    // Screen Orientation API — lock to portrait (works in TWA / installed PWA)
+    if(screen.orientation && screen.orientation.lock){
+        screen.orientation.lock('portrait').catch(()=>{});
+    }
 });
 
 // ================================================
@@ -493,20 +510,16 @@ function updateSystemUI(){
             chartHelper.textContent = 'Evolución del RC (inicia en -'+Math.abs(getInitialRC())+')';
         }
     }
-    // KO: la carta 7 vale +1 (no 0). Actualizar botón + espaciar visualmente en la fila.
+    // KO: la carta 7 vale +1 (no 0). Actualizar botón visualmente.
     const btn7 = document.querySelector('[onclick="addCard(\'7\')"]');
-    const row789 = document.getElementById('row789');
     if(btn7){
         const label = btn7.querySelector('.card-count');
         if(currentSystem==='ko'){
             btn7.className='card-btn btn-plus';
             label.textContent='+1';
-            // 7 más ancho, 8 y 9 proporcionalmente más chicos → gap visual entre zonas
-            if(row789) row789.style.gridTemplateColumns='1.25fr 0.875fr 0.875fr';
         } else {
             btn7.className='card-btn btn-zero';
             label.textContent='0';
-            if(row789) row789.style.gridTemplateColumns='repeat(3,1fr)';
         }
     }
 }
